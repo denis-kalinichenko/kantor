@@ -1,0 +1,2 @@
+# kantor
+Currency Exchange Widget
