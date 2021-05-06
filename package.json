@@ -1,0 +1,15 @@
+{
+  "name": "kantor",
+  "version": "0.1",
+  "description": "Currency Exchange Widget",
+  "repository": "https://github.com/denis-kalinichenko/kantor.git",
+  "author": "Denis Kalinichenko <denis@kalinichenko.me>",
+  "license": "UNLICENSE",
+  "private": true,
+  "workspaces": ["packages/*", "applications/*"],
+  "scripts": {
+    "start": "yarn workspaces run start",
+    "test": "yarn workspaces run test --ci",
+    "test:watch": "yarn workspaces run test:watch"
+  }
+}
