@@ -10,6 +10,7 @@
   "scripts": {
     "start": "yarn workspaces run start",
     "test": "yarn workspaces run test --ci",
-    "test:watch": "yarn workspaces run test:watch"
+    "test:watch": "yarn workspaces run test:watch",
+    "build": "yarn workspaces run build"
   }
 }
