@@ -1,0 +1,9 @@
+{
+  "name": "@bank/react-currency-exchange-widget",
+  "version": "0.1.0",
+  "description": "Internal Reusable Currency Exchange Widget for React",
+  "main": "src/index.ts",
+  "author": "Denis Kalinichenko <denis@kalinichenko.me>",
+  "license": "UNLICENSE",
+  "private": true
+}
