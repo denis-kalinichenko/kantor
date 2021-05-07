@@ -5,5 +5,8 @@
   "main": "src/index.ts",
   "author": "Denis Kalinichenko <denis@kalinichenko.me>",
   "license": "UNLICENSE",
-  "private": true
+  "private": true,
+  "scripts": {
+    "build": "echo 'currency-exchange-widget build complete'"
+  }
 }

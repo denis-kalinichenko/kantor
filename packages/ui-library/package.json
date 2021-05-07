@@ -11,5 +11,8 @@
   },
   "resolutions": {
     "styled-components": "^5"
+  },
+  "scripts": {
+    "build": "echo 'ui-library build complete'"
   }
 }
