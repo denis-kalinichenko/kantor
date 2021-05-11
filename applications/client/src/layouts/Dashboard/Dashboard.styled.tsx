@@ -6,7 +6,7 @@ export const Wrapper = styled.div`
   background-color: ${Palette.dashboardBg};
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  min-height: 100vh;
 
   @media (${media.desktop}) {
     flex-direction: row;
