@@ -8,7 +8,7 @@
   "private": true,
   "workspaces": ["packages/*", "applications/*"],
   "scripts": {
-    "start": "yarn workspaces run start",
+    "start": "cd applications/client && yarn start",
     "test": "yarn workspaces run test --ci",
     "test:watch": "yarn workspaces run test:watch",
     "build": "yarn workspaces run build"
