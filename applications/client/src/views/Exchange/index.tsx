@@ -30,6 +30,10 @@ export const Exchange: FC = (): JSX.Element => {
                     GBP: 0.11
                 }}
                 currencies={currencies}
+                defaultPair={{
+                    from: "USD",
+                    to: "EUR"
+                }}
             />
         </Widget>
     );

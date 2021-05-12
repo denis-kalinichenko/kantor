@@ -2,8 +2,9 @@ import {ICurrencies, ICurrency} from "../../types";
 
 export interface IFieldProps {
     currencies: ICurrencies;
-    currency: ICurrency;
+    currencyCode: ICurrency["code"];
     balance: number;
-    onCurrencyChange: (newCurrency: ICurrency) => void;
+    onCurrencyChange: (newCurrencyCode: ICurrency["code"]) => void;
+    positiveValue?: boolean;
     autoFocus?: boolean;
 }

@@ -1,52 +1,79 @@
 import {useState} from "react";
-import {ICurrency} from "../../types";
-import {DisplayMode, ICurrencyExchangeWidgetProps} from "./Widget.types";
+import {ICurrencyPair} from "../../types";
+import {ICurrencyExchangeWidgetProps} from "./Widget.types";
+import {IFieldProps} from "../Field/Field.types";
 
 export const useWidget = (props: ICurrencyExchangeWidgetProps) => {
-    const {currencies, accounts} = props;
+    const {currencies, accounts, defaultPair} = props;
 
-    const defaultCurrencyToSell = currencies[Object.keys(currencies)[0]];
-    const defaultCurrencyToBuy = currencies[Object.keys(currencies)[1]];
+    const [pair, setPair] = useState<ICurrencyPair>(defaultPair);
 
-    const [currencyToSell, setCurrencyToSell] = useState<ICurrency>(defaultCurrencyToSell);
-    const [currencyToBuy, setCurrencyToBuy] = useState<ICurrency>(defaultCurrencyToBuy);
-    const [displayMode, setDisplayMode] = useState<DisplayMode>(DisplayMode.sell);
+    const [isSwapped, setIsSwapped] = useState<boolean>(false);
 
-    const selectCurrencyToBuy = (currency: ICurrency): void => setCurrencyToBuy(prevState => {
-        if (currency === currencyToSell) {
-            setCurrencyToSell(prevState);
+    const swapPair = () => {
+        setIsSwapped(prevState => !prevState);
+        return setPair(prevState => ({
+            from: prevState.to,
+            to: prevState.from,
+        }));
+    };
+
+    const setCurrencyFrom = (currencyCode: string): void => setPair(prevStatePair => {
+        if (currencyCode === prevStatePair.to) {
+            return {
+                from: currencyCode,
+                to: prevStatePair.from,
+            };
         }
-        return currency;
+
+        return {
+            from: currencyCode,
+            to: prevStatePair.to,
+        };
     });
 
-    const selectCurrencyToSell = (currency: ICurrency): void => setCurrencyToSell(prevState => {
-        if (currency === currencyToBuy) {
-            setCurrencyToBuy(prevState);
+    const setCurrencyTo = (currencyCode: string): void => setPair(prevStatePair => {
+        if (currencyCode === prevStatePair.from) {
+            return {
+                from: prevStatePair.to,
+                to: currencyCode,
+            };
         }
-        return currency;
+
+        return {
+            from: prevStatePair.from,
+            to: currencyCode,
+        };
     });
 
-    const toggleDisplayMode = (): void => setDisplayMode(prevState => {
-        return prevState === DisplayMode.sell ? DisplayMode.buy : DisplayMode.sell;
-    });
+    const getFieldProps = (swap: boolean): IFieldProps => {
+        return {
+            currencies,
+            currencyCode: !swap ? pair.from : pair.to,
+            balance: !swap ? accounts[pair.from] : accounts[pair.to],
+            positiveValue: swap,
+            onCurrencyChange: newCurrencyCode => {
+                if (!swap) {
+                    return setCurrencyFrom(newCurrencyCode);
+                }
+
+                return setCurrencyTo(newCurrencyCode);
+            },
+        };
+    };
 
     const getButtonLabel = (): string => {
-        if (displayMode === DisplayMode.sell) {
-            return `Sell ${currencyToSell.code} for ${currencyToBuy.code}`;
+        if (!isSwapped) {
+            return `Sell ${pair.from} for ${pair.to}`;
         }
-        return `Buy ${currencyToSell.code} with ${currencyToBuy.code}`;
+        return `Buy ${pair.to} with ${pair.from}`;
     };
 
     return {
-        currencyToSell,
-        selectCurrencyToSell,
-
-        currencyToBuy,
-        selectCurrencyToBuy,
-
-        displayMode,
-        toggleDisplayMode,
-
+        pair,
+        swapPair,
+        isSwapped,
+        getFieldProps,
         getButtonLabel,
     };
 };

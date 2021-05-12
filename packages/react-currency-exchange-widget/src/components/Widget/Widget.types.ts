@@ -1,11 +1,7 @@
-import {IAccounts, ICurrencies} from "../../types";
+import {IAccounts, ICurrencies, ICurrencyPair} from "../../types";
 
 export interface ICurrencyExchangeWidgetProps {
     accounts: IAccounts;
     currencies: ICurrencies;
-}
-
-export enum DisplayMode {
-    sell,
-    buy
+    defaultPair: ICurrencyPair;
 }

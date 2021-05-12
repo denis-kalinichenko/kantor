@@ -8,7 +8,11 @@ export interface ICurrencies {
     [key: string]: ICurrency;
 }
 
-
 export interface IAccounts {
     [key: string]: number;
+}
+
+export interface ICurrencyPair {
+    from: ICurrency["code"];
+    to: ICurrency["code"];
 }

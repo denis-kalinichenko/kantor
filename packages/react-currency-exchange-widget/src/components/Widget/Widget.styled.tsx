@@ -29,4 +29,5 @@ export const ToggleDisplayModeButton = styled(Button)`
   height: 1.6rem;
   border-radius: 50%;
   color: ${Palette.text};
+  text-align: center;
 `;

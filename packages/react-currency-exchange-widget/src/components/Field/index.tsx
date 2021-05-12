@@ -3,21 +3,23 @@ import useDropdownMenu from 'react-accessible-dropdown-menu-hook';
 import {Dropdown, DropdownButton, DropdownMenu, DropdownMenuOption} from "@bank/ui-library";
 import {Balance, Input, Wrapper} from "./Field.styled";
 import {IFieldProps} from "./Field.types";
-import {ICurrency} from "../../types";
 
 export const Field: FC<IFieldProps> = ({
    currencies,
-   currency,
+   currencyCode,
    onCurrencyChange,
+   positiveValue,
    autoFocus,
-   balance = 0
+   balance = 0,
 }) => {
-    const {buttonProps, itemProps, isOpen, setIsOpen} = useDropdownMenu(Object.keys(currencies).length - 1);
+    const {buttonProps, itemProps, isOpen, setIsOpen} = useDropdownMenu(Object.keys(currencies).length);
 
-    const handleCurrencyChange = (newCurrency: ICurrency) => {
+    const handleCurrencyChange = (newCurrencyCode: string) => {
         setIsOpen(false);
-        return onCurrencyChange(newCurrency);
+        return onCurrencyChange(newCurrencyCode);
     };
+
+    const currency = currencies[currencyCode];
 
     return (
         <Wrapper>
@@ -31,7 +33,7 @@ export const Field: FC<IFieldProps> = ({
                                     <DropdownMenuOption
                                         key={currencies[key].code}
                                         {...itemProps[index]}
-                                        onClick={() => handleCurrencyChange(currencies[key])}
+                                        onClick={() => handleCurrencyChange(key)}
                                     >
                                         {currencies[key].name} <span>{currencies[key].code}</span>
                                     </DropdownMenuOption>
@@ -42,15 +44,18 @@ export const Field: FC<IFieldProps> = ({
                 <Balance>Balance: {balance} {currency.symbol}</Balance>
             </div>
             <Input
-                type="number"
                 name={currency.code}
                 placeholder={`0 ${currency.symbol}`}
+                suffix={` ${currency.symbol}`}
+                prefix={positiveValue ? "+" : "-"}
+                groupSeparator={" "}
                 defaultValue=""
-                inputMode="decimal"
                 autoComplete="off"
-                min={0}
                 autoFocus={autoFocus}
                 required
+                allowNegativeValue={false}
+                maxLength={8}
+                step={1}
             />
         </Wrapper>
     );
