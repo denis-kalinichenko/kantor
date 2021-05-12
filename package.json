@@ -6,11 +6,19 @@
   "author": "Denis Kalinichenko <denis@kalinichenko.me>",
   "license": "UNLICENSE",
   "private": true,
-  "workspaces": ["packages/*", "applications/*"],
+  "workspaces": [
+    "packages/ui-library",
+    "packages/*",
+    "applications/*"
+  ],
   "scripts": {
+    "prestart": "yarn clean && yarn workspaces run build",
     "start": "cd applications/client && yarn start",
     "test": "yarn workspaces run test --ci",
-    "test:watch": "yarn workspaces run test:watch",
-    "build": "yarn workspaces run build"
+    "build": "yarn clean && yarn workspaces run build",
+    "clean": "rimraf ./packages/react-currency-exchange-widget/build ./packages/ui-library/build applications/client/build"
+  },
+  "devDependencies": {
+    "rimraf": "^3.0.2"
   }
 }

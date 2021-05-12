@@ -11,7 +11,7 @@ export const Buttons = styled.div`
   margin: 2rem 0;
   
   ${ActionButton} {
-    margin-right: 0.5em;
+    margin: 0 0.5em 0.5em 0;
   }
 `;
 

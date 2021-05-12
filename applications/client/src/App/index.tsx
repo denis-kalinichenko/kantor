@@ -14,7 +14,7 @@ export const App: FC = (): JSX.Element => (
                 </Dashboard>
             </Route>
             <Route exact path="/accounts/exchange">
-                <Drawer>
+                <Drawer backRouterLink="/accounts">
                     <Exchange/>
                 </Drawer>
             </Route>

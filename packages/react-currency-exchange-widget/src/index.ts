@@ -1,1 +1,3 @@
-// @todo implementation
+import {CurrencyExchangeWidget} from "./components/Widget";
+
+export default CurrencyExchangeWidget;

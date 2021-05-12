@@ -11,9 +11,9 @@ export const Accounts: FC = (): JSX.Element => {
             <Heading1>$2.84</Heading1>
             <div>All accounts balance in USD</div>
             <Buttons>
-                <ActionButton>Add money</ActionButton>
-                <ActionButton>Send</ActionButton>
-                <ActionButton onClick={() => history.push("/accounts/exchange")}>Exchange</ActionButton>
+                <ActionButton>&#65291; Add money</ActionButton>
+                <ActionButton>&#10142; Send</ActionButton>
+                <ActionButton onClick={() => history.push("/accounts/exchange")}>&#10561; Exchange</ActionButton>
             </Buttons>
 
             <List>
