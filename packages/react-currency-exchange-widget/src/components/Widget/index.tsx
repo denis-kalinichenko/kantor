@@ -6,24 +6,28 @@ import {Form, MarketRate, ToggleDisplayModeButton, ToggleDisplayModeButtonWrappe
 import {useWidget} from "./Widget.hook";
 
 export const CurrencyExchangeWidget: FC<ICurrencyExchangeWidgetProps> = ({
-     currencies,
-     accounts,
-     defaultPair
+    currencies,
+    accounts,
+    defaultPair,
+    onExchange
 }): JSX.Element => {
     const {
         pair,
+        rate,
         swapPair,
         isSwapped,
         getFieldProps,
         getButtonLabel,
-    } = useWidget({currencies, accounts, defaultPair});
+        handleSubmit,
+    } = useWidget({currencies, accounts, defaultPair, onExchange});
 
     return (
-        <Form onSubmit={(event) => event.preventDefault()}>
+        <Form onSubmit={handleSubmit}>
             <div>
                 <Heading1>{!isSwapped ? `Sell ${pair.from}` : `Buy ${pair.to}`}</Heading1>
-                <MarketRate>Market order &bull; 1 {currencies[pair.from].symbol} =
-                    0,8245 {currencies[pair.to].symbol}</MarketRate>
+                <MarketRate>
+                    Market order &bull; 1 {currencies[pair.from].symbol} = {rate ? rate : "..."} {currencies[pair.to].symbol}
+                </MarketRate>
 
                 <Field {...getFieldProps(isSwapped)} autoFocus/>
 
@@ -35,7 +39,7 @@ export const CurrencyExchangeWidget: FC<ICurrencyExchangeWidgetProps> = ({
 
                 <Field {...getFieldProps(!isSwapped)} />
             </div>
-            <PrimaryButton>{getButtonLabel()}</PrimaryButton>
+            <PrimaryButton type="submit">{getButtonLabel()}</PrimaryButton>
         </Form>
     );
 };

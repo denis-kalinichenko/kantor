@@ -1,8 +1,9 @@
 import React, {FC} from "react";
 import useDropdownMenu from 'react-accessible-dropdown-menu-hook';
 import {Dropdown, DropdownButton, DropdownMenu, DropdownMenuOption} from "@bank/ui-library";
-import {Balance, Input, Wrapper} from "./Field.styled";
+import {Balance, Input, InputWrapper, Wrapper, Error} from "./Field.styled";
 import {IFieldProps} from "./Field.types";
+import NumberFormat, {NumberFormatValues} from 'react-number-format';
 
 export const Field: FC<IFieldProps> = ({
    currencies,
@@ -11,6 +12,8 @@ export const Field: FC<IFieldProps> = ({
    positiveValue,
    autoFocus,
    balance = 0,
+   value,
+   onValueChange,
 }) => {
     const {buttonProps, itemProps, isOpen, setIsOpen} = useDropdownMenu(Object.keys(currencies).length);
 
@@ -43,20 +46,28 @@ export const Field: FC<IFieldProps> = ({
                 </Dropdown>
                 <Balance>Balance: {balance} {currency.symbol}</Balance>
             </div>
-            <Input
-                name={currency.code}
-                placeholder={`0 ${currency.symbol}`}
-                suffix={` ${currency.symbol}`}
-                prefix={positiveValue ? "+" : "-"}
-                groupSeparator={" "}
-                defaultValue=""
-                autoComplete="off"
-                autoFocus={autoFocus}
-                required
-                allowNegativeValue={false}
-                maxLength={8}
-                step={1}
-            />
+            <InputWrapper>
+                <NumberFormat
+                    customInput={Input}
+                    thousandSeparator=" "
+                    decimalSeparator="."
+                    allowLeadingZeros={false}
+                    allowNegative={false}
+                    placeholder={`0 ${currency.symbol}`}
+                    prefix={positiveValue ? "+" : "-"}
+                    suffix={' ' + currency.symbol}
+                    decimalScale={2}
+                    onValueChange={(values: NumberFormatValues) =>
+                        onValueChange((values.floatValue || values.floatValue === 0) ? Math.abs(values.floatValue) : null)}
+                    autoFocus={autoFocus}
+                    autoComplete="off"
+                    required
+                    value={(value || value === 0) ? value : ""}
+                    inputMode="numeric"
+                    isAllowed={(values: NumberFormatValues) => values.formattedValue.length < 14}
+                />
+                {(!positiveValue && value && value > balance) && <Error>exceeds balance</Error>}
+            </InputWrapper>
         </Wrapper>
     );
 };

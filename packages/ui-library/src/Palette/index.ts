@@ -10,4 +10,5 @@ export const Palette = {
     primaryLight: "#e3eaf6",
     cardBg: "#fff",
     border: "#e7e7e8",
+    error: "#c43131"
 }

@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import {Widget} from "./Exchange.styled";
-import CurrencyExchangeWidget from "@bank/react-currency-exchange-widget";
+import CurrencyExchangeWidget, {IExchangeData} from "@bank/react-currency-exchange-widget";
 
 const currencies = {
     USD: {
@@ -33,6 +33,9 @@ export const Exchange: FC = (): JSX.Element => {
                 defaultPair={{
                     from: "USD",
                     to: "EUR"
+                }}
+                onExchange={(values: IExchangeData) => {
+                    console.log(values);
                 }}
             />
         </Widget>
