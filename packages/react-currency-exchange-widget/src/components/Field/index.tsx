@@ -74,6 +74,8 @@ export const Field: FC<IFieldProps> = ({
                     isAllowed={(values: NumberFormatValues) => values.formattedValue.length < 14}
                     onFocus={() => setInFocus(true)}
                     onBlur={() => setInFocus(false)}
+                    step="0.01"
+                    lang="en"
                 />
                 {(!positiveValue && value && value > balance) ? <Error>exceeds balance</Error> : ""}
             </InputWrapper>
