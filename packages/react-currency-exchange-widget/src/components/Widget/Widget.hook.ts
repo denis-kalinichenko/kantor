@@ -3,7 +3,7 @@ import {ICurrencyPair, ICurrencyPairValues, ValueType} from "../../types";
 import {ICurrencyExchangeWidgetProps} from "./Widget.types";
 import {IFieldProps} from "../Field/Field.types";
 import {convert} from "exchange-rates-api";
-import {convertCurrency} from "../../utils/convert";
+import {calculate} from "../../utils/calculate";
 
 export const useWidget = (props: ICurrencyExchangeWidgetProps) => {
     const {currencies, accounts, defaultPair, onExchange} = props;
@@ -66,12 +66,12 @@ export const useWidget = (props: ICurrencyExchangeWidgetProps) => {
             case ValueType.from:
                 return setPairValues({
                     from: value,
-                    to: convertCurrency(rate, "multiply", value),
+                    to: calculate(rate, "multiply", value),
                 });
             case ValueType.to:
                 return setPairValues({
                     to: value,
-                    from: convertCurrency(rate,"divide", value),
+                    from: calculate(rate,"divide", value),
                 });
         }
     };

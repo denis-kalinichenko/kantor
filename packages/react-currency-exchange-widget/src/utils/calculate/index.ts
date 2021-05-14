@@ -1,6 +1,6 @@
-import {truncateDecimals} from "./truncateDecimals";
+import {truncateDecimals} from "../truncateDecimals";
 
-export const convertCurrency = (rate: number, operation: "multiply" | "divide", value?: number): number | undefined => {
+export const calculate = (rate: number, operation: "multiply" | "divide", value?: number): number | undefined => {
     if (value === 0) {
         return value;
     }
@@ -19,8 +19,6 @@ export const convertCurrency = (rate: number, operation: "multiply" | "divide", 
         case "divide":
             calculated = value / roundedRate;
             break;
-        default:
-            calculated = 0;
     }
 
     return truncateDecimals(calculated, 2);

@@ -4,8 +4,7 @@ import {Dropdown, DropdownButton, DropdownMenu, DropdownMenuOption} from "@bank/
 import {Balance, Input, InputWrapper, Wrapper, Error} from "./Field.styled";
 import {IFieldProps} from "./Field.types";
 import NumberFormat, {NumberFormatValues} from 'react-number-format';
-import {getDecimalSeparator} from "../../utils";
-import {formatCurrency} from "../../utils/formatCurrency";
+import {getDecimalSeparator, formatCurrency} from "../../utils";
 
 export const Field: FC<IFieldProps> = ({
    currencies,
