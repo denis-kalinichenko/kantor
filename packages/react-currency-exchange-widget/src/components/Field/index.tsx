@@ -1,4 +1,4 @@
-import React, {FC} from "react";
+import React, {FC, useState} from "react";
 import useDropdownMenu from 'react-accessible-dropdown-menu-hook';
 import {Dropdown, DropdownButton, DropdownMenu, DropdownMenuOption} from "@bank/ui-library";
 import {Balance, Input, InputWrapper, Wrapper, Error} from "./Field.styled";
@@ -16,6 +16,7 @@ export const Field: FC<IFieldProps> = ({
    onValueChange,
 }) => {
     const {buttonProps, itemProps, isOpen, setIsOpen} = useDropdownMenu(Object.keys(currencies).length);
+    const [inFocus, setInFocus] = useState<boolean>(false);
 
     const handleCurrencyChange = (newCurrencyCode: string) => {
         setIsOpen(false);
@@ -57,16 +58,21 @@ export const Field: FC<IFieldProps> = ({
                     prefix={positiveValue ? "+" : "-"}
                     suffix={' ' + currency.symbol}
                     decimalScale={2}
-                    onValueChange={(values: NumberFormatValues) =>
-                        onValueChange((values.floatValue || values.floatValue === 0) ? Math.abs(values.floatValue) : null)}
+                    onValueChange={(values: NumberFormatValues) => {
+                        if (inFocus) {
+                            onValueChange((values.floatValue || values.floatValue === 0) ? Math.abs(values.floatValue) : null);
+                        }
+                    }}
                     autoFocus={autoFocus}
                     autoComplete="off"
                     required
                     value={(value || value === 0) ? value : ""}
                     inputMode="numeric"
                     isAllowed={(values: NumberFormatValues) => values.formattedValue.length < 14}
+                    onFocus={() => setInFocus(true)}
+                    onBlur={() => setInFocus(false)}
                 />
-                {(!positiveValue && value && value > balance) && <Error>exceeds balance</Error>}
+                {(!positiveValue && value && value > balance) ? <Error>exceeds balance</Error> : ""}
             </InputWrapper>
         </Wrapper>
     );

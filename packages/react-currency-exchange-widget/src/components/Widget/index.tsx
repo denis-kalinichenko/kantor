@@ -19,6 +19,7 @@ export const CurrencyExchangeWidget: FC<ICurrencyExchangeWidgetProps> = ({
         getFieldProps,
         getButtonLabel,
         handleSubmit,
+        isDirty,
     } = useWidget({currencies, accounts, defaultPair, onExchange});
 
     return (
@@ -39,7 +40,7 @@ export const CurrencyExchangeWidget: FC<ICurrencyExchangeWidgetProps> = ({
 
                 <Field {...getFieldProps(!isSwapped)} />
             </div>
-            <PrimaryButton type="submit">{getButtonLabel()}</PrimaryButton>
+            <PrimaryButton type="submit" disabled={isDirty}>{getButtonLabel()}</PrimaryButton>
         </Form>
     );
 };

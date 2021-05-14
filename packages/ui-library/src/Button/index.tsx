@@ -40,9 +40,15 @@ export const PrimaryButton = styled(Button)`
   border-radius: 1rem;
   height: 3.5rem;
   font-size: 1rem;
-  transition: background-color .2s;
+  transition: background-color .2s, opacity .2s;
   
   &:hover {
     background-color: ${Palette.primaryDark};
+  }
+  
+  &[disabled] {
+    opacity: .5;
+    pointer-events: none;
+    cursor: default;
   }
 `;

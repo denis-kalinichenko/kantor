@@ -13,7 +13,22 @@ export const DropdownButton = styled(Button)`
   font-size: 1.8rem;
   color: ${Palette.textPrimary};
   line-height: 1.5em;
-  padding: 0;
+  padding: 0 20px 0 0;
+  position: relative;
+  
+  &::after {
+    content: "";
+    display: block;
+    width: 8px;
+    height: 8px;
+    border-right: 2px solid black;
+    border-bottom: 2px solid black;
+    transform: rotate(45deg);
+    position: absolute;
+    right: 0;
+    top: 13px;
+    border-radius: 1px;
+  }
 `;
 
 const fadeIn = keyframes`

@@ -9,7 +9,7 @@ export const Wrapper = styled.div`
 `;
 
 export const Balance = styled.div`
-  font-size: 1rem;
+  font-size: 0.9rem;
   color: ${Palette.textLight};
 `;
 
@@ -19,7 +19,7 @@ export const Error = styled.span`
 `;
 
 export const InputWrapper = styled.div`
-  width: 60%;
+  width: 65%;
   text-align: right;
 `;
 

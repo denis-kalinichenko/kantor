@@ -1,9 +1,11 @@
-import React, {FC} from "react";
+import React, {FC, useContext} from "react";
 import {Heading1, ActionButton} from "@bank/ui-library";
 import {Wrapper, Buttons, List, Account, AccountName, AccountBalance} from "./Accounts.styled";
 import {useHistory} from "react-router-dom";
+import {GlobalStore} from "../../state/Provider";
 
 export const Accounts: FC = (): JSX.Element => {
+    const { state: { user, currencies } } = useContext(GlobalStore);
     const history = useHistory();
 
     return (
@@ -17,21 +19,13 @@ export const Accounts: FC = (): JSX.Element => {
             </Buttons>
 
             <List>
-                <Account>
-                    <AccountName>United States dollar</AccountName>
-                    <span>PLN</span>
-                    <AccountBalance>$0.00</AccountBalance>
-                </Account>
-                <Account>
-                    <AccountName>Euro</AccountName>
-                    <span>EUR</span>
-                    <AccountBalance>€0.00</AccountBalance>
-                </Account>
-                <Account>
-                    <AccountName>British Pound</AccountName>
-                    <span>GBP</span>
-                    <AccountBalance>£0.00</AccountBalance>
-                </Account>
+                {Object.keys(user.accounts).map(code => (
+                    <Account key={code}>
+                        <AccountName>{currencies[code].name}</AccountName>
+                        <span>{currencies[code].code}</span>
+                        <AccountBalance>{currencies[code].symbol}{user.accounts[code] || 0.00}</AccountBalance>
+                    </Account>
+                ))}
             </List>
         </Wrapper>
     );

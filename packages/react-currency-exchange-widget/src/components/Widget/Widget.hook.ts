@@ -16,6 +16,8 @@ export const useWidget = (props: ICurrencyExchangeWidgetProps) => {
     const [isSwapped, setIsSwapped] = useState<boolean>(false);
     const [rate, setRate] = useState<number>(0);
 
+    const isDirty: boolean = (!pairValues.from || !pairValues.to) || pairValues.from > accounts[pair.from];
+
     const fetchRate = async () => {
         const amount = await convert(1, pair.from, pair.to, new Date());
         setRate(amount);
@@ -62,6 +64,18 @@ export const useWidget = (props: ICurrencyExchangeWidgetProps) => {
         };
     });
 
+    function truncateDecimals (num: number, digits: number) {
+        const numS = num.toString(),
+            decPos = numS.indexOf('.'),
+            substrLength = decPos == -1 ? numS.length : 1 + decPos + digits,
+            trimmedResult = numS.substr(0, substrLength),
+            // @ts-ignore
+            finalResult = isNaN(trimmedResult) ? 0 : trimmedResult;
+
+        // @ts-ignore
+        return parseFloat(finalResult);
+    }
+
     const convertLocally = (value: number | null, operation: "multiply" | "divide"): number | null => {
         if (value === 0) {
             return value;
@@ -71,18 +85,19 @@ export const useWidget = (props: ICurrencyExchangeWidgetProps) => {
             return null;
         }
 
-        let calculated = currency(value);
+        let calculated;
+        const roundedRate = truncateDecimals(rate, 2);
 
         switch (operation) {
             case "multiply":
-                calculated = calculated.multiply(rate.toFixed(2));
+                calculated = value * roundedRate;
                 break;
             case "divide":
-                calculated = calculated.divide(rate.toFixed(2));
+                calculated = value / roundedRate;
                 break;
         }
 
-        return Number(calculated);
+        return truncateDecimals(calculated, 2);
     }
 
     const handleValueChange = (type: ValueType, value: number | null) => {
@@ -153,5 +168,6 @@ export const useWidget = (props: ICurrencyExchangeWidgetProps) => {
         getFieldProps,
         getButtonLabel,
         handleSubmit,
+        isDirty,
     };
 };

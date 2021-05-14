@@ -1,42 +1,53 @@
-import React, { FC } from "react";
-import {Widget} from "./Exchange.styled";
+import React, {FC, useContext, useState, useEffect} from "react";
+import {Widget, SuccessScreen, SuccessMessage} from "./Exchange.styled";
 import CurrencyExchangeWidget, {IExchangeData} from "@bank/react-currency-exchange-widget";
-
-const currencies = {
-    USD: {
-        symbol: "$",
-        name: "US Dollar",
-        code: "USD",
-    },
-    EUR: {
-        symbol: "€",
-        name: "Euro",
-        code: "EUR",
-    },
-    GBP: {
-        symbol: "£",
-        name: "British Pound",
-        code: "GBP",
-    },
-};
+import {GlobalStore} from "../../state/Provider";
+import {userActionTypes} from "../../state/reducers/user.reducer";
+import {useHistory} from "react-router-dom";
+import {AnimatedCheckmark} from "./components/AnimatedCheckmark";
 
 export const Exchange: FC = (): JSX.Element => {
+    const { state: { user, currencies }, dispatch } = useContext(GlobalStore);
+    const [exchangedCurrency, setExchangedCurrency] = useState<IExchangeData>();
+    const history = useHistory();
+
+    useEffect(() => {
+        if (exchangedCurrency) {
+            const timer = setTimeout(() => {
+                history.push("/accounts");
+            },  3000);
+            return () => clearTimeout(timer);
+        }
+    }, [exchangedCurrency, history]);
+
+    const handleExchange = (values: IExchangeData) => {
+        dispatch({ type: userActionTypes.EXCHANGE, payload: values});
+        setExchangedCurrency(values);
+    };
+
+    if (exchangedCurrency) {
+        const { from, to } = exchangedCurrency;
+
+        return (
+            <SuccessScreen>
+                <AnimatedCheckmark/>
+                <SuccessMessage>You exchanged<br/>
+                    <span>{to.value} {to.code} from {from.value} {from.code}</span>
+                </SuccessMessage>
+            </SuccessScreen>
+        );
+    }
+
     return (
         <Widget>
             <CurrencyExchangeWidget
-                accounts={{
-                    USD: 10.0,
-                    EUR: 101,
-                    GBP: 0.11
-                }}
+                accounts={user.accounts}
                 currencies={currencies}
                 defaultPair={{
                     from: "USD",
                     to: "EUR"
                 }}
-                onExchange={(values: IExchangeData) => {
-                    console.log(values);
-                }}
+                onExchange={handleExchange}
             />
         </Widget>
     );
