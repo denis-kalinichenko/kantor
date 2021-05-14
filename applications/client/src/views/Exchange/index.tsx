@@ -1,6 +1,6 @@
 import React, {FC, useContext, useState, useEffect} from "react";
 import {Widget, SuccessScreen, SuccessMessage} from "./Exchange.styled";
-import CurrencyExchangeWidget, {IExchangeData} from "@bank/react-currency-exchange-widget";
+import CurrencyExchangeWidget, {IExchangeData, formatCurrency} from "@bank/react-currency-exchange-widget";
 import {GlobalStore} from "../../state/Provider";
 import {userActionTypes} from "../../state/reducers/user.reducer";
 import {useHistory} from "react-router-dom";
@@ -32,7 +32,7 @@ export const Exchange: FC = (): JSX.Element => {
             <SuccessScreen>
                 <AnimatedCheckmark/>
                 <SuccessMessage>You exchanged<br/>
-                    <span>{to.value} {to.code} from {from.value} {from.code}</span>
+                    <span>{formatCurrency(to.value)} {to.code} from {formatCurrency(from.value)} {from.code}</span>
                 </SuccessMessage>
             </SuccessScreen>
         );

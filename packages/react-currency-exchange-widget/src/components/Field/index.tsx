@@ -4,6 +4,8 @@ import {Dropdown, DropdownButton, DropdownMenu, DropdownMenuOption} from "@bank/
 import {Balance, Input, InputWrapper, Wrapper, Error} from "./Field.styled";
 import {IFieldProps} from "./Field.types";
 import NumberFormat, {NumberFormatValues} from 'react-number-format';
+import {getDecimalSeparator} from "../../utils";
+import {formatCurrency} from "../../utils/formatCurrency";
 
 export const Field: FC<IFieldProps> = ({
    currencies,
@@ -45,13 +47,13 @@ export const Field: FC<IFieldProps> = ({
                         }
                     </DropdownMenu>
                 </Dropdown>
-                <Balance>Balance: {balance} {currency.symbol}</Balance>
+                <Balance>Balance: {formatCurrency(balance)} {currency.symbol}</Balance>
             </div>
             <InputWrapper>
                 <NumberFormat
                     customInput={Input}
                     thousandSeparator=" "
-                    decimalSeparator="."
+                    decimalSeparator={getDecimalSeparator()}
                     allowLeadingZeros={false}
                     allowNegative={false}
                     placeholder={`0 ${currency.symbol}`}
@@ -74,8 +76,6 @@ export const Field: FC<IFieldProps> = ({
                     isAllowed={(values: NumberFormatValues) => values.formattedValue.length < 14}
                     onFocus={() => setInFocus(true)}
                     onBlur={() => setInFocus(false)}
-                    step="0.01"
-                    lang="en_EN"
                 />
                 {(!positiveValue && value && value > balance) ? <Error>exceeds balance</Error> : ""}
             </InputWrapper>

@@ -22,12 +22,19 @@ export const CurrencyExchangeWidget: FC<ICurrencyExchangeWidgetProps> = ({
         isDirty,
     } = useWidget({currencies, accounts, defaultPair, onExchange});
 
+    const getRate = (): string => {
+        if (!rate) {
+            return "...";
+        }
+        return rate.toLocaleString(undefined, { maximumFractionDigits: 4, useGrouping: false });
+    }
+
     return (
         <Form onSubmit={handleSubmit}>
             <div>
                 <Heading1>{!isSwapped ? `Sell ${pair.from}` : `Buy ${pair.to}`}</Heading1>
                 <MarketRate>
-                    Market order &bull; 1 {currencies[pair.from].symbol} = {rate ? rate : "..."} {currencies[pair.to].symbol}
+                    Market order &bull; 1 {currencies[pair.from].symbol} = {getRate()} {currencies[pair.to].symbol}
                 </MarketRate>
 
                 <Field {...getFieldProps(isSwapped)} autoFocus/>
