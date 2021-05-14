@@ -6,7 +6,7 @@ export interface IFieldProps {
     balance: number;
     positiveValue?: boolean;
     autoFocus?: boolean;
-    value: number | null;
+    value?: number;
     onCurrencyChange: (newCurrencyCode: ICurrency["code"]) => void;
-    onValueChange: (value: number | null) => void;
+    onValueChange: (value?: number) => void;
 }

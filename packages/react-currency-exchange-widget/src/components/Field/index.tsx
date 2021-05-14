@@ -60,7 +60,10 @@ export const Field: FC<IFieldProps> = ({
                     decimalScale={2}
                     onValueChange={(values: NumberFormatValues) => {
                         if (inFocus) {
-                            onValueChange((values.floatValue || values.floatValue === 0) ? Math.abs(values.floatValue) : null);
+                            if (!values.floatValue && values.floatValue !== 0) {
+                                return onValueChange();
+                            }
+                            return onValueChange(Math.abs(values.floatValue));
                         }
                     }}
                     autoFocus={autoFocus}

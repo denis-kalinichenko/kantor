@@ -17,7 +17,6 @@
   },
   "dependencies": {
     "@bank/ui-library": "^0.1.0",
-    "currency.js": "^2.0.3",
     "exchange-rates-api": "^1.1.0",
     "react": "^17.0.2",
     "react-accessible-dropdown-menu-hook": "^2.2.2",
@@ -29,7 +28,6 @@
     "@types/exchange-rates-api": "^1.0.0",
     "@types/react-router-dom": "^5.1.7",
     "@types/styled-components": "^5.1.9",
-    "exchange-rates-api": "^1.1.0",
     "typescript": "^4.2.4"
   }
 }

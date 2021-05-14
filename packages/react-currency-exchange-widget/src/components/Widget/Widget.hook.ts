@@ -2,17 +2,14 @@ import React, {useEffect, useState} from "react";
 import {ICurrencyPair, ICurrencyPairValues, ValueType} from "../../types";
 import {ICurrencyExchangeWidgetProps} from "./Widget.types";
 import {IFieldProps} from "../Field/Field.types";
-import currency from "currency.js";
 import {convert} from "exchange-rates-api";
+import {convertCurrency} from "../../utils/convert";
 
 export const useWidget = (props: ICurrencyExchangeWidgetProps) => {
     const {currencies, accounts, defaultPair, onExchange} = props;
 
     const [pair, setPair] = useState<ICurrencyPair>(defaultPair);
-    const [pairValues, setPairValues] = useState<ICurrencyPairValues>({
-        from: null,
-        to: null,
-    });
+    const [pairValues, setPairValues] = useState<ICurrencyPairValues>({});
     const [isSwapped, setIsSwapped] = useState<boolean>(false);
     const [rate, setRate] = useState<number>(0);
 
@@ -64,53 +61,17 @@ export const useWidget = (props: ICurrencyExchangeWidgetProps) => {
         };
     });
 
-    function truncateDecimals (num: number, digits: number) {
-        const numS = num.toString(),
-            decPos = numS.indexOf('.'),
-            substrLength = decPos == -1 ? numS.length : 1 + decPos + digits,
-            trimmedResult = numS.substr(0, substrLength),
-            // @ts-ignore
-            finalResult = isNaN(trimmedResult) ? 0 : trimmedResult;
-
-        // @ts-ignore
-        return parseFloat(finalResult);
-    }
-
-    const convertLocally = (value: number | null, operation: "multiply" | "divide"): number | null => {
-        if (value === 0) {
-            return value;
-        }
-
-        if (!value) {
-            return null;
-        }
-
-        let calculated;
-        const roundedRate = truncateDecimals(rate, 2);
-
-        switch (operation) {
-            case "multiply":
-                calculated = value * roundedRate;
-                break;
-            case "divide":
-                calculated = value / roundedRate;
-                break;
-        }
-
-        return truncateDecimals(calculated, 2);
-    }
-
-    const handleValueChange = (type: ValueType, value: number | null) => {
+    const handleValueChange = (type: ValueType, value?: number) => {
         switch (type) {
             case ValueType.from:
                 return setPairValues({
                     from: value,
-                    to: convertLocally(value, "multiply"),
+                    to: convertCurrency(rate, "multiply", value),
                 });
             case ValueType.to:
                 return setPairValues({
                     to: value,
-                    from: convertLocally(value, "divide"),
+                    from: convertCurrency(rate,"divide", value),
                 });
         }
     };

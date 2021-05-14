@@ -18,8 +18,8 @@ export interface ICurrencyPair {
 }
 
 export interface ICurrencyPairValues {
-    from: number | null;
-    to: number | null;
+    from?: number;
+    to?: number;
 }
 
 export enum ValueType {
