@@ -75,7 +75,7 @@ export const Field: FC<IFieldProps> = ({
                     onFocus={() => setInFocus(true)}
                     onBlur={() => setInFocus(false)}
                     step="0.01"
-                    lang="en"
+                    lang="en_EN"
                 />
                 {(!positiveValue && value && value > balance) ? <Error>exceeds balance</Error> : ""}
             </InputWrapper>
