@@ -70,7 +70,7 @@ export const Field: FC<IFieldProps> = ({
                     autoComplete="off"
                     required
                     value={(value || value === 0) ? value : ""}
-                    inputMode="numeric"
+                    inputMode="decimal"
                     isAllowed={(values: NumberFormatValues) => values.formattedValue.length < 14}
                     onFocus={() => setInFocus(true)}
                     onBlur={() => setInFocus(false)}
