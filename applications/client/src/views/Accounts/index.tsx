@@ -4,14 +4,20 @@ import {Wrapper, Buttons, List, Account, AccountName, AccountBalance} from "./Ac
 import {useHistory} from "react-router-dom";
 import {GlobalStore} from "../../state/Provider";
 import {formatCurrency} from "@bank/react-currency-exchange-widget";
+import {useAccounts} from "./Accounts.hook";
 
 export const Accounts: FC = (): JSX.Element => {
     const { state: { user, currencies } } = useContext(GlobalStore);
     const history = useHistory();
+    const { total, calculation } = useAccounts(user.accounts);
 
     return (
         <Wrapper>
-            <Heading1>${2.84.toLocaleString()}</Heading1>
+            <Heading1>${calculation ? " ..." : total.toLocaleString(undefined, {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2,
+                useGrouping: false,
+            })}</Heading1>
             <div>All accounts balance in USD</div>
             <Buttons>
                 <ActionButton>&#65291; Add money</ActionButton>
