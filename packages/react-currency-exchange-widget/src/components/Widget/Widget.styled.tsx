@@ -7,6 +7,7 @@ export const Form = styled.form`
   justify-content: space-between;
   height: 100%;
   width: 100%;
+  padding-bottom: 1rem;
 `;
 
 export const MarketRate = styled.div`
@@ -30,4 +31,12 @@ export const ToggleDisplayModeButton = styled(Button)`
   border-radius: 50%;
   color: ${Palette.text};
   text-align: center;
+`;
+
+export const Body = styled.div`
+  margin-bottom: 1rem;
+
+  @media (${media.desktop}) {
+    margin-bottom: 0;
+  }
 `;

@@ -3,7 +3,7 @@ import {ICurrencyPair, ICurrencyPairValues, ValueType} from "../../types";
 import {ICurrencyExchangeWidgetProps} from "./Widget.types";
 import {IFieldProps} from "../Field/Field.types";
 import {convert} from "exchange-rates-api";
-import {calculate} from "../../utils/calculate";
+import {calculate} from "../../utils";
 
 export const useWidget = (props: ICurrencyExchangeWidgetProps) => {
     const {currencies, accounts, defaultPair, onExchange} = props;
@@ -37,6 +37,10 @@ export const useWidget = (props: ICurrencyExchangeWidgetProps) => {
 
     const setCurrencyFrom = (currencyCode: string): void => setPair(prevStatePair => {
         if (currencyCode === prevStatePair.to) {
+            setPairValues(prevState => ({
+                from: prevState.to,
+                to: prevState.from,
+            }));
             return {
                 from: currencyCode,
                 to: prevStatePair.from,
@@ -50,6 +54,10 @@ export const useWidget = (props: ICurrencyExchangeWidgetProps) => {
 
     const setCurrencyTo = (currencyCode: string): void => setPair(prevStatePair => {
         if (currencyCode === prevStatePair.from) {
+            setPairValues(prevState => ({
+                from: prevState.to,
+                to: prevState.from,
+            }));
             return {
                 from: prevStatePair.to,
                 to: currencyCode,
@@ -77,19 +85,26 @@ export const useWidget = (props: ICurrencyExchangeWidgetProps) => {
     };
 
     const getFieldProps = (swap: boolean): IFieldProps => {
+        if (!swap) {
+            return {
+                currencies,
+                currencyCode: pair.from,
+                balance: accounts[pair.from],
+                value: pairValues.from,
+                positiveValue: false,
+                onCurrencyChange: setCurrencyFrom,
+                onValueChange: newValue => handleValueChange(ValueType.from, newValue),
+            };
+        }
+
         return {
             currencies,
-            currencyCode: !swap ? pair.from : pair.to,
-            balance: !swap ? accounts[pair.from] : accounts[pair.to],
-            positiveValue: swap,
-            value: !swap ? pairValues.from : pairValues.to,
-            onCurrencyChange: newCurrencyCode => {
-                if (!swap) {
-                    return setCurrencyFrom(newCurrencyCode);
-                }
-                return setCurrencyTo(newCurrencyCode);
-            },
-            onValueChange: newValue => handleValueChange((!swap ? ValueType.from : ValueType.to), newValue),
+            currencyCode: pair.to,
+            balance: accounts[pair.to],
+            positiveValue: true,
+            value: pairValues.to,
+            onCurrencyChange: setCurrencyTo,
+            onValueChange: newValue => handleValueChange(ValueType.to, newValue),
         };
     };
 
@@ -119,16 +134,23 @@ export const useWidget = (props: ICurrencyExchangeWidgetProps) => {
                 }
             });
         }
-    }
+    };
+
+    const getRate = (): string => {
+        if (!rate) {
+            return "...";
+        }
+        return rate.toLocaleString(undefined, { maximumFractionDigits: 4, useGrouping: false });
+    };
 
     return {
         pair,
-        rate,
         swapPair,
         isSwapped,
         getFieldProps,
         getButtonLabel,
         handleSubmit,
         isDirty,
+        getRate,
     };
 };

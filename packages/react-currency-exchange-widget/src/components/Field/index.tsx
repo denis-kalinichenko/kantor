@@ -1,10 +1,9 @@
 import React, {FC, useState} from "react";
-import useDropdownMenu from 'react-accessible-dropdown-menu-hook';
-import {Dropdown, DropdownButton, DropdownMenu, DropdownMenuOption} from "@bank/ui-library";
-import {Balance, Input, InputWrapper, Wrapper, Error} from "./Field.styled";
-import {IFieldProps} from "./Field.types";
 import NumberFormat, {NumberFormatValues} from 'react-number-format';
 import {getDecimalSeparator, formatCurrency} from "../../utils";
+import {CurrencyDropdown} from "../CurrencyDropdown";
+import {Balance, Input, InputWrapper, Wrapper, Error} from "./Field.styled";
+import {IFieldProps} from "./Field.types";
 
 export const Field: FC<IFieldProps> = ({
    currencies,
@@ -16,40 +15,27 @@ export const Field: FC<IFieldProps> = ({
    value,
    onValueChange,
 }) => {
-    const {buttonProps, itemProps, isOpen, setIsOpen} = useDropdownMenu(Object.keys(currencies).length);
     const [inFocus, setInFocus] = useState<boolean>(false);
-
-    const handleCurrencyChange = (newCurrencyCode: string) => {
-        setIsOpen(false);
-        return onCurrencyChange(newCurrencyCode);
-    };
-
     const currency = currencies[currencyCode];
+
+    const handleValueChange = (values: NumberFormatValues) => {
+        if (inFocus) {
+            if (!values.floatValue && values.floatValue !== 0) {
+                return onValueChange();
+            }
+            return onValueChange(Math.abs(values.floatValue));
+        }
+    };
 
     return (
         <Wrapper>
             <div>
-                <Dropdown>
-                    <DropdownButton {...buttonProps} type="button">{currency.code}</DropdownButton>
-                    <DropdownMenu role="menu" isOpen={isOpen}>
-                        {
-                            Object.keys(currencies)
-                                .map((key, index) => (
-                                    <DropdownMenuOption
-                                        key={currencies[key].code}
-                                        {...itemProps[index]}
-                                        onClick={() => handleCurrencyChange(key)}
-                                    >
-                                        {currencies[key].name} <span>{currencies[key].code}</span>
-                                    </DropdownMenuOption>
-                                ))
-                        }
-                    </DropdownMenu>
-                </Dropdown>
+                <CurrencyDropdown currencies={currencies} onChange={onCurrencyChange} value={currency.code}/>
                 <Balance>Balance: {formatCurrency(balance)} {currency.symbol}</Balance>
             </div>
             <InputWrapper>
                 <NumberFormat
+                    required
                     customInput={Input}
                     thousandSeparator=" "
                     decimalSeparator={getDecimalSeparator()}
@@ -59,22 +45,14 @@ export const Field: FC<IFieldProps> = ({
                     prefix={positiveValue ? "+" : "-"}
                     suffix={' ' + currency.symbol}
                     decimalScale={2}
-                    onValueChange={(values: NumberFormatValues) => {
-                        if (inFocus) {
-                            if (!values.floatValue && values.floatValue !== 0) {
-                                return onValueChange();
-                            }
-                            return onValueChange(Math.abs(values.floatValue));
-                        }
-                    }}
                     autoFocus={autoFocus}
                     autoComplete="off"
-                    required
-                    value={(value || value === 0) ? value : ""}
                     inputMode="decimal"
+                    value={(value || value === 0) ? value : ""}
                     isAllowed={(values: NumberFormatValues) => values.formattedValue.length < 14}
                     onFocus={() => setInFocus(true)}
                     onBlur={() => setInFocus(false)}
+                    onValueChange={handleValueChange}
                 />
                 {(!positiveValue && value && value > balance) ? <Error>exceeds balance</Error> : ""}
             </InputWrapper>

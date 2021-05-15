@@ -2,7 +2,7 @@ import React, {FC} from "react";
 import {ICurrencyExchangeWidgetProps} from "./Widget.types";
 import {Field} from "../Field";
 import {Heading1, PrimaryButton} from "@bank/ui-library";
-import {Form, MarketRate, ToggleDisplayModeButton, ToggleDisplayModeButtonWrapper} from "./Widget.styled";
+import {Form, MarketRate, ToggleDisplayModeButton, ToggleDisplayModeButtonWrapper, Body} from "./Widget.styled";
 import {useWidget} from "./Widget.hook";
 
 export const CurrencyExchangeWidget: FC<ICurrencyExchangeWidgetProps> = ({
@@ -13,25 +13,17 @@ export const CurrencyExchangeWidget: FC<ICurrencyExchangeWidgetProps> = ({
 }): JSX.Element => {
     const {
         pair,
-        rate,
         swapPair,
         isSwapped,
         getFieldProps,
         getButtonLabel,
         handleSubmit,
         isDirty,
+        getRate,
     } = useWidget({currencies, accounts, defaultPair, onExchange});
-
-    const getRate = (): string => {
-        if (!rate) {
-            return "...";
-        }
-        return rate.toLocaleString(undefined, { maximumFractionDigits: 4, useGrouping: false });
-    }
-
     return (
         <Form onSubmit={handleSubmit}>
-            <div>
+            <Body>
                 <Heading1>{!isSwapped ? `Sell ${pair.from}` : `Buy ${pair.to}`}</Heading1>
                 <MarketRate>
                     Market order &bull; 1 {currencies[pair.from].symbol} = {getRate()} {currencies[pair.to].symbol}
@@ -46,7 +38,7 @@ export const CurrencyExchangeWidget: FC<ICurrencyExchangeWidgetProps> = ({
                 </ToggleDisplayModeButtonWrapper>
 
                 <Field {...getFieldProps(!isSwapped)} />
-            </div>
+            </Body>
             <PrimaryButton type="submit" disabled={isDirty}>{getButtonLabel()}</PrimaryButton>
         </Form>
     );

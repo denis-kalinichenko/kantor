@@ -21,8 +21,8 @@ export const DropdownButton = styled(Button)`
     display: block;
     width: 8px;
     height: 8px;
-    border-right: 2px solid black;
-    border-bottom: 2px solid black;
+    border-right: 2px solid ${Palette.textPrimary};
+    border-bottom: 2px solid ${Palette.textPrimary};
     transform: rotate(45deg);
     position: absolute;
     right: 0;
