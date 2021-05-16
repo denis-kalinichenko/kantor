@@ -2,9 +2,12 @@
  Currency Exchange App and Widget
 
 [![Vercel](http://therealsujitk-vercel-badge.vercel.app/?app=kantor)](https://kantor.denis.app)
-[![GitHub package.json dynamic](https://img.shields.io/github/package-json/version/denis-kalinichenko/kantor)](https://github.com/denis-kalinichenko/kantor/releases)
 [![GitHub branch checks state](https://img.shields.io/github/checks-status/denis-kalinichenko/kantor/main)](https://github.com/denis-kalinichenko/kantor/deployments)
-[![Coverage](https://img.shields.io/badge/coverage-96.67%25-green)](https://kantor.denis.app/coverage/lcov-report/index.html)
+[![Coverage](https://kantor.denis.app/coverage/badge-statements.svg)](https://kantor.denis.app/coverage/lcov-report/index.html)
+[![Coverage](https://kantor.denis.app/coverage/badge-branches.svg)](https://kantor.denis.app/coverage/lcov-report/index.html)
+[![Coverage](https://kantor.denis.app/coverage/badge-functions.svg)](https://kantor.denis.app/coverage/lcov-report/index.html)
+[![Coverage](https://kantor.denis.app/coverage/badge-lines.svg)](https://kantor.denis.app/coverage/lcov-report/index.html)
+[![GitHub package.json dynamic](https://img.shields.io/github/package-json/version/denis-kalinichenko/kantor)](https://github.com/denis-kalinichenko/kantor/releases)
 
 
 ## Overview
