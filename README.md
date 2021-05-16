@@ -73,7 +73,7 @@ import {Heading1, PrimaryButton, Palette, GlobalStyles, ActionButton} from "@ban
 
 ## Live Demo
 
-[kantor.denis.app](kantor.denis.app)
+[kantor.denis.app](https://kantor.denis.app)
 
 ## Quick Start
 
