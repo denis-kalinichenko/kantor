@@ -4,7 +4,7 @@ import {render, fireEvent, screen, configure, getAllByRole} from '@testing-libra
 import '@testing-library/jest-dom/extend-expect';
 
 configure({
-    defaultHidden: true
+    defaultHidden: true,
 });
 
 const currencies = {

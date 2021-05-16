@@ -12,7 +12,7 @@ export const useAccounts = (accounts: IAccounts) => {
             let total = accounts["USD"];
             for (const code of Object.keys(accounts)) {
                 if (code !== "USD" && accounts[code] > 0) {
-                    total += await convert(accounts[code], code, "USD", new Date());
+                    total += await convert(accounts[code], code, "USD", "latest");
                 }
             }
             setTotal(total);

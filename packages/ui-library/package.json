@@ -18,7 +18,8 @@
   "scripts": {
     "build": "tsc",
     "build:watch": "tsc --watch",
-    "test": "echo 'no tests here, just an ui library'"
+    "test": "echo 'no tests here, just an ui library'",
+    "test:ci": "echo 'no tests here, just an ui library'"
   },
   "devDependencies": {
     "@types/react-router-dom": "^5.1.7",

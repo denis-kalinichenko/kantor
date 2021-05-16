@@ -11,7 +11,7 @@ export const Field: FC<IFieldProps> = ({
    onCurrencyChange,
    positiveValue,
    autoFocus,
-   balance = 0,
+   balance,
    value,
    onValueChange,
 }) => {
@@ -31,7 +31,7 @@ export const Field: FC<IFieldProps> = ({
         <Wrapper>
             <div>
                 <CurrencyDropdown currencies={currencies} onChange={onCurrencyChange} value={currency.code}/>
-                <Balance>Balance: {formatCurrency(balance)} {currency.symbol}</Balance>
+                <Balance data-testid="balance">Balance: {formatCurrency(balance)} {currency.symbol}</Balance>
             </div>
             <InputWrapper>
                 <NumberFormat
@@ -48,13 +48,15 @@ export const Field: FC<IFieldProps> = ({
                     autoFocus={autoFocus}
                     autoComplete="off"
                     inputMode="decimal"
+                    data-testid="currencyInput"
+                    name={positiveValue ? "to" : "from"}
                     value={(value || value === 0) ? value : ""}
                     isAllowed={(values: NumberFormatValues) => values.formattedValue.length < 14}
                     onFocus={() => setInFocus(true)}
                     onBlur={() => setInFocus(false)}
                     onValueChange={handleValueChange}
                 />
-                {(!positiveValue && value && value > balance) ? <Error>exceeds balance</Error> : ""}
+                {(!positiveValue && value && value > balance) ? <Error role="alert">exceeds balance</Error> : ""}
             </InputWrapper>
         </Wrapper>
     );

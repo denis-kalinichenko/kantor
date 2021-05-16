@@ -1,5 +1,9 @@
+const CurrencyExchangeWidget = jest.fn();
+jest.mock("./components/Widget", () => {
+    return {CurrencyExchangeWidget};
+});
+
 import index from ".";
-import {CurrencyExchangeWidget} from "./components/Widget";
 
 describe("entry file", () =>  {
     it("should has exported default component", () => {

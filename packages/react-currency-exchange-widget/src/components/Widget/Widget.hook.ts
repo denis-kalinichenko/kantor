@@ -16,7 +16,7 @@ export const useWidget = (props: ICurrencyExchangeWidgetProps) => {
     const isDirty: boolean = (!pairValues.from || !pairValues.to) || pairValues.from > accounts[pair.from];
 
     const fetchRate = async () => {
-        const amount = await convert(1, pair.from, pair.to, new Date());
+        const amount = await convert(1, pair.from, pair.to, "latest");
         setRate(amount);
     };
 

@@ -10,7 +10,7 @@ export const Drawer: FC<IDrawerProps> = ({ children, backRouterLink }): JSX.Elem
     return (
         <div>
             <Header>
-                <BackButton onClick={() => history.push(backRouterLink)}>{`<`}</BackButton>
+                <BackButton onClick={() => history.push(backRouterLink)} aria-label="Previous">{`<`}</BackButton>
             </Header>
             <Main>
                 {children}

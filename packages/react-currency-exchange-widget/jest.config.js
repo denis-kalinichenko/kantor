@@ -1,6 +1,7 @@
 module.exports = {
     roots: ['<rootDir>/src'],
     collectCoverageFrom: ['src/**/*.{js,jsx,ts,tsx}', '!src/**/*.d.ts', '!src/types/*', '!src/**/*.styled.tsx'],
+    coverageDirectory: "../../applications/client/public/coverage",
     testRunner: require.resolve('jest-circus/runner'),
     transform: {
         '^.+\\.tsx?$': 'ts-jest',
@@ -16,4 +17,5 @@ module.exports = {
     testEnvironment: 'jsdom',
     moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
     resetMocks: true,
+    verbose: true
 }

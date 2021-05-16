@@ -22,24 +22,31 @@ export const CurrencyExchangeWidget: FC<ICurrencyExchangeWidgetProps> = ({
         getRate,
     } = useWidget({currencies, accounts, defaultPair, onExchange});
     return (
-        <Form onSubmit={handleSubmit}>
+        <Form onSubmit={handleSubmit} role="form">
             <Body>
-                <Heading1>{!isSwapped ? `Sell ${pair.from}` : `Buy ${pair.to}`}</Heading1>
-                <MarketRate>
+                <Heading1 role="heading">{!isSwapped ? `Sell ${pair.from}` : `Buy ${pair.to}`}</Heading1>
+                <MarketRate data-testid="marketRate">
                     Market order &bull; 1 {currencies[pair.from].symbol} = {getRate()} {currencies[pair.to].symbol}
                 </MarketRate>
 
                 <Field {...getFieldProps(isSwapped)} autoFocus/>
 
                 <ToggleDisplayModeButtonWrapper>
-                    <ToggleDisplayModeButton type="button" onClick={() => swapPair()}>
+                    <ToggleDisplayModeButton type="button" onClick={() => swapPair()} role="button" data-testid="swap">
                         {isSwapped ? <>&#8593;</> : <>&#8595;</>}
                     </ToggleDisplayModeButton>
                 </ToggleDisplayModeButtonWrapper>
 
                 <Field {...getFieldProps(!isSwapped)} />
             </Body>
-            <PrimaryButton type="submit" disabled={isDirty}>{getButtonLabel()}</PrimaryButton>
+            <PrimaryButton
+                type="submit"
+                disabled={isDirty}
+                role="button"
+                data-testid="exchangeButton"
+            >
+                {getButtonLabel()}
+            </PrimaryButton>
         </Form>
     );
 };

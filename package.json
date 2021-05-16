@@ -15,7 +15,7 @@
     "postinstall": "yarn workspaces run build",
     "prestart": "yarn clean && yarn workspaces run build",
     "start": "cd applications/client && yarn start",
-    "test": "yarn workspaces run test --ci",
+    "test": "yarn workspaces run test:ci --ci",
     "build": "yarn clean && yarn workspaces run build",
     "prebuild": "yarn test",
     "clean": "rimraf ./packages/react-currency-exchange-widget/build ./packages/ui-library/build applications/client/build"

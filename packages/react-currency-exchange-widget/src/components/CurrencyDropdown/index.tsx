@@ -12,7 +12,7 @@ export const CurrencyDropdown: FC<ICurrencyDropdownProps> = ({ currencies, onCha
     };
 
     return (
-        <Dropdown>
+        <Dropdown role="combobox">
             <DropdownButton {...buttonProps} type="button">{value}</DropdownButton>
             <DropdownMenu role="menu" isOpen={isOpen}>
                 {Object.keys(currencies).map((key, index) => (
