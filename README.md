@@ -102,6 +102,7 @@ yarn test
 
 ## TBD
 
+* error handling
 * cover client app with unit tests
 * add storybook for ui library
 * add cypress e2e tests
