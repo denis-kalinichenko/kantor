@@ -1,4 +1,4 @@
-import {convert} from "exchange-rates-api";
+import {convert} from "@bank/exchange-rates";
 import {IAccounts} from "@bank/react-currency-exchange-widget";
 import {useEffect, useState} from "react";
 

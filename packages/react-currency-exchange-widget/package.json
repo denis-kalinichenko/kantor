@@ -1,6 +1,6 @@
 {
   "name": "@bank/react-currency-exchange-widget",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Internal Reusable Currency Exchange Widget for React",
   "main": "build/index.js",
   "typings": "build/index.d.ts",
@@ -18,8 +18,8 @@
     "test:watch": "jest test --watchAll"
   },
   "dependencies": {
-    "@bank/ui-library": "^0.1.0",
-    "exchange-rates-api": "^1.1.0",
+    "@bank/exchange-rates": "^0.2.0",
+    "@bank/ui-library": "^0.2.0",
     "react": "^17.0.2",
     "react-accessible-dropdown-menu-hook": "^2.2.2",
     "react-dom": "^17.0.2",
@@ -30,7 +30,6 @@
     "@testing-library/dom": "^7.31.0",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^13.1.9",
-    "@types/exchange-rates-api": "^1.0.0",
     "@types/react-router-dom": "^5.1.7",
     "@types/styled-components": "^5.1.9",
     "jest": "^26.6.3",

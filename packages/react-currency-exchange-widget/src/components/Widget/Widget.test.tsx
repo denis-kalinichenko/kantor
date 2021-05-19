@@ -7,7 +7,7 @@ configure({
 });
 
 const convert = jest.fn();
-jest.mock("exchange-rates-api", () => ({
+jest.mock("@bank/exchange-rates", () => ({
     convert,
 }));
 

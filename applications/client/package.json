@@ -1,10 +1,11 @@
 {
   "name": "client",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "dependencies": {
-    "@bank/react-currency-exchange-widget": "^0.1.0",
-    "@bank/ui-library": "^0.1.0",
+    "@bank/exchange-rates": "^0.2.0",
+    "@bank/react-currency-exchange-widget": "^0.2.0",
+    "@bank/ui-library": "^0.2.0",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
@@ -12,7 +13,6 @@
     "@types/node": "^12.0.0",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
-    "exchange-rates-api": "^1.1.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-router-dom": "^5.2.0",
@@ -49,7 +49,6 @@
     ]
   },
   "devDependencies": {
-    "@types/exchange-rates-api": "^1.0.0",
     "@types/react-router-dom": "^5.1.7",
     "@types/styled-components": "^5.1.9"
   },

@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {ICurrencyPair, ICurrencyPairValues, ValueType} from "../../types";
 import {ICurrencyExchangeWidgetProps} from "./Widget.types";
 import {IFieldProps} from "../Field/Field.types";
-import {convert} from "exchange-rates-api";
+import {convert} from "@bank/exchange-rates";
 import {calculate} from "../../utils";
 
 export const useWidget = (props: ICurrencyExchangeWidgetProps) => {

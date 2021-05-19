@@ -1,6 +1,6 @@
 {
   "name": "kantor",
-  "version": "0.1",
+  "version": "0.2.0",
   "description": "Currency Exchange Widget",
   "repository": "https://github.com/denis-kalinichenko/kantor.git",
   "author": "Denis Kalinichenko <denis@kalinichenko.me>",
@@ -18,7 +18,7 @@
     "test": "yarn workspaces run test:ci --ci",
     "build": "yarn clean && yarn workspaces run build",
     "prebuild": "yarn test",
-    "clean": "rimraf ./packages/react-currency-exchange-widget/build ./packages/ui-library/build applications/client/build"
+    "clean": "rimraf ./packages/react-currency-exchange-widget/build ./packages/ui-library/build  ./packages/exchange-rates/build applications/client/build"
   },
   "devDependencies": {
     "rimraf": "^3.0.2"

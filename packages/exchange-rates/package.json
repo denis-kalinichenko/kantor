@@ -1,0 +1,19 @@
+{
+  "name": "@bank/exchange-rates",
+  "version": "0.2.0",
+  "description": "Exchange Rates API",
+  "main": "build/index.js",
+  "typings": "build/index.d.ts",
+  "author": "Denis Kalinichenko <denis@kalinichenko.me>",
+  "license": "UNLICENSED",
+  "private": true,
+  "scripts": {
+    "build": "tsc",
+    "build:watch": "tsc --watch",
+    "test": "echo 'no tests here, for now'",
+    "test:ci": "echo 'no tests here, for now'"
+  },
+  "dependencies": {
+    "typescript": "^4.2.4"
+  }
+}
