@@ -1,5 +1,5 @@
 # kantor<sub><sup>*</sup></sub>
- Currency Exchange App and Widget
+Currency Exchange App and Widget
 
 [![Vercel](http://therealsujitk-vercel-badge.vercel.app/?app=kantor)](https://kantor.denis.app)
 [![GitHub branch checks state](https://img.shields.io/github/checks-status/denis-kalinichenko/kantor/main)](https://github.com/denis-kalinichenko/kantor/deployments)
@@ -12,7 +12,7 @@
 
 ## Overview
 
-"Kantor" is a mobile-friendly Currency Exchange App built on React and TypeScript. Exchange rates built on top of data from free service [ratesapi.io](https://ratesapi.io). 
+"Kantor" is a mobile-friendly Currency Exchange App built on React and TypeScript. Exchange rates built on top of fake data from service rates.denis.app. 
 
 ### Features
 
@@ -64,6 +64,7 @@ import {CurrencyExchangeWidget} from "@bank/react-currency-exchange-widget";
   onExchange={(value) => {}}
 />
 ```
+
 ##### [`packages/ui-library`](packages/ui-library)
 ###### Usage Example
 ```javascript
@@ -72,6 +73,16 @@ import {Heading1, PrimaryButton, Palette, GlobalStyles, ActionButton} from "@ban
 
 ```jsx
 <PrimaryButton type="submit">Fancy Button</PrimaryButton>
+```
+
+##### [`packages/exchange-rates`](packages/exchange-rates)
+###### Usage
+```javascript
+import {convert} from "@bank/exchange-rates";
+```
+
+```javascript
+const amount = await convert(100, "USD", "EUR", "latest");
 ```
 
 ## Live Demo
